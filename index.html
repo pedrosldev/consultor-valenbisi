@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Valenbisi · Parada</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --accent: #22c55e;
+        --danger: #ef4444;
+        --warn: #f59e0b;
+        --border: rgba(255, 255, 255, 0.1);
+        --field: rgba(255, 255, 255, 0.06);
+        --field-hover: rgba(255, 255, 255, 0.1);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 24px;
+        padding: 28px 24px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+      h1 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--muted);
+        text-align: center;
+        margin-bottom: 4px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .station-name {
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        color: var(--text);
+        margin-bottom: 24px;
+        line-height: 1.4;
+      }
+      .big-number {
+        font-size: 5rem;
+        font-weight: 800;
+        text-align: center;
+        line-height: 1;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .big-number.warn {
+        color: var(--warn);
+      }
+      .big-number.danger {
+        color: var(--danger);
+      }
+      .label {
+        text-align: center;
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin-bottom: 24px;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .stat-label {
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .status {
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 8px 12px;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+      .status.ok {
+        color: var(--accent);
+        background: rgba(34, 197, 94, 0.12);
+      }
+      .status.error {
+        color: var(--danger);
+        background: rgba(239, 68, 68, 0.12);
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      button {
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        color: var(--text);
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      button:active {
+        opacity: 0.7;
+      }
+      .spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        vertical-align: middle;
+        margin-right: 6px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ---------------- Select estilizado ---------------- */
+      .field {
+        margin-bottom: 20px;
+      }
+      .field > label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 8px;
+        padding-left: 4px;
+      }
+      .select-wrap {
+        position: relative;
+      }
+      .select-wrap select {
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: var(--field);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px 44px 14px 16px;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        outline: none;
+        transition:
+          border-color 0.15s ease,
+          background-color 0.15s ease,
+          box-shadow 0.15s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .select-wrap select:hover {
+        background-color: var(--field-hover);
+      }
+      .select-wrap select:focus-visible {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+      }
+      /* Flecha personalizada */
+      .select-wrap::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid var(--muted);
+        border-bottom: 2px solid var(--muted);
+        transform: translateY(-70%) rotate(45deg);
+        pointer-events: none;
+        transition: border-color 0.15s ease;
+      }
+      .select-wrap:hover::after {
+        border-color: var(--text);
+      }
+      /* Opciones (el desplegable nativo se pinta con los colores del sistema,
+         pero forzamos fondo/color para navegadores que lo respetan) */
+      .select-wrap select option {
+        background-color: var(--card);
+        color: var(--text);
+        padding: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="field">
+        <label for="parada">Parada</label>
+        <div class="select-wrap">
+          <select id="parada" name="parada"></select>
+        </div>
+      </div>
+
+      <h1>Valenbisi</h1>
+      <div class="station-name" id="stationName">Cargando parada…</div>
+
+      <div class="big-number" id="bigNumber">—</div>
+      <div class="label">anclajes libres</div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="freeBikes">—</div>
+          <div class="stat-label">bicis</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="totalSlots">—</div>
+          <div class="stat-label">total</div>
+        </div>
+      </div>
+
+      <div class="status" id="status">Consultando datos…</div>
+
+      <div class="footer">
+        <span id="lastUpdate">—</span>
+        <button id="refreshBtn" type="button">Actualizar</button>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        const paradaSelect = document.getElementById("parada");
+
+        const opciones = [];
+        for (let i = 1; i <= 276; i++) {
+          opciones.push({ value: String(i), label: "Parada " + i });
+        }
+
+        opciones.forEach((opcion) => {
+          const optionElement = document.createElement("option");
+          optionElement.value = opcion.value;
+          optionElement.textContent = opcion.label;
+          paradaSelect.appendChild(optionElement);
+        });
+
+        let STATION_UID = paradaSelect.value;
+
+        const API_URL = "https://api.citybik.es/v2/networks/valenbisi";
+        const REFRESH_MS = 60_000;
+
+        const el = {
+          stationName: document.getElementById("stationName"),
+          bigNumber: document.getElementById("bigNumber"),
+          freeBikes: document.getElementById("freeBikes"),
+          totalSlots: document.getElementById("totalSlots"),
+          status: document.getElementById("status"),
+          lastUpdate: document.getElementById("lastUpdate"),
+          refreshBtn: document.getElementById("refreshBtn"),
+        };
+
+        let intervalId = null;
+
+        function setStatus(text, type) {
+          el.status.textContent = text;
+          el.status.className = "status" + (type ? " " + type : "");
+        }
+
+        function setLoading(isLoading) {
+          el.refreshBtn.disabled = isLoading;
+          el.refreshBtn.innerHTML = isLoading
+            ? '<span class="spinner"></span>Actualizando'
+            : "Actualizar";
+        }
+
+        function formatTime(isoString) {
+          if (!isoString) return "—";
+          const d = new Date(isoString);
+          if (isNaN(d.getTime())) return "—";
+          return d.toLocaleTimeString("es-ES", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        }
+
+        async function fetchStation() {
+          setLoading(true);
+          setStatus("Consultando datos…", null);
+
+          try {
+            const response = await fetch(API_URL, { cache: "no-store" });
+            if (!response.ok) throw new Error("HTTP " + response.status);
+
+            const data = await response.json();
+            const stations = data?.network?.stations;
+            if (!Array.isArray(stations))
+              throw new Error("Formato de respuesta inesperado");
+
+            const station = stations.find(
+              (s) => String(s.extra?.uid) === String(STATION_UID),
+            );
+
+            if (!station) {
+              el.stationName.textContent =
+                "Parada " + STATION_UID + " no encontrada";
+              el.bigNumber.textContent = "—";
+              el.bigNumber.className = "big-number";
+              el.freeBikes.textContent = "—";
+              el.totalSlots.textContent = "—";
+              setStatus("No se ha encontrado la estación en la API", "error");
+              return;
+            }
+
+            const freeSlots = station.empty_slots ?? 0;
+            const freeBikes = station.free_bikes ?? 0;
+            const totalSlots = station.extra?.slots ?? freeSlots + freeBikes;
+            const isOpen =
+              station.extra?.renting !== false &&
+              station.extra?.returning !== false;
+
+            // Rellenar nombres reales de las opciones del select
+
+            const porUid = new Map(
+              stations.map((s) => [String(s.extra?.uid), s]),
+            );
+            for (let i = 0; i < paradaSelect.options.length; i++) {
+              const s = porUid.get(paradaSelect.options[i].value);
+              if (s) {
+                paradaSelect.options[i].textContent =
+                  s.extra?.address || s.name || "Parada " + s.extra?.uid;
+              }
+            }
+
+            el.stationName.textContent =
+              station.extra?.address || station.name || "Parada " + STATION_UID;
+
+            el.bigNumber.textContent = freeSlots;
+            el.bigNumber.className =
+              "big-number" +
+              (freeSlots === 0 ? " danger" : freeSlots < 3 ? " warn" : "");
+
+            el.freeBikes.textContent = freeBikes;
+            el.totalSlots.textContent = totalSlots;
+
+            setStatus(
+              isOpen ? "Estación operativa" : "Estación cerrada temporalmente",
+              isOpen ? "ok" : "error",
+            );
+
+            el.lastUpdate.textContent =
+              "Actualizado: " + formatTime(station.timestamp);
+          } catch (err) {
+            console.error(err);
+            setStatus("Error al conectar con la API", "error");
+            el.lastUpdate.textContent = "—";
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        paradaSelect.addEventListener("change", () => {
+          STATION_UID = paradaSelect.value;
+          fetchStation();
+        });
+
+        function startAutoRefresh() {
+          if (intervalId) clearInterval(intervalId);
+          intervalId = setInterval(fetchStation, REFRESH_MS);
+        }
+
+        el.refreshBtn.addEventListener("click", fetchStation);
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden) fetchStation();
+        });
+
+        fetchStation().then(startAutoRefresh);
+
+        window.addEventListener("beforeunload", () => {
+          if (intervalId) clearInterval(intervalId);
+        });
+      })();
+    </script>
+  </body>
+</html>
