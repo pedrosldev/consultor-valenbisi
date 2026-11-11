@@ -301,6 +301,7 @@
         };
 
         let intervalId = null;
+        let alreadyOrdered = false;
 
         function setStatus(text, type) {
           el.status.textContent = text;
@@ -324,6 +325,30 @@
           });
         }
 
+        /**
+         * Reordena las opciones del select alfabéticamente por su texto,
+         * selecciona la primera y devuelve la estación correspondiente
+         * a esa nueva selección (o null si no hay opciones).
+         */
+        function ordenarOpcionesYSeleccionarPrimera(stations) {
+          const opcionesOrdenadas = Array.from(paradaSelect.options).sort(
+            (a, b) =>
+              a.textContent.localeCompare(b.textContent, "es", {
+                sensitivity: "base",
+              }),
+          );
+          opcionesOrdenadas.forEach((opt) => paradaSelect.appendChild(opt));
+
+          if (opcionesOrdenadas.length === 0) return null;
+
+          paradaSelect.selectedIndex = 0;
+          STATION_UID = paradaSelect.value;
+
+          return stations.find(
+            (s) => String(s.extra?.uid) === String(STATION_UID),
+          );
+        }
+
         async function fetchStation() {
           setLoading(true);
           setStatus("Consultando datos…", null);
@@ -337,7 +362,7 @@
             if (!Array.isArray(stations))
               throw new Error("Formato de respuesta inesperado");
 
-            const station = stations.find(
+            let station = stations.find(
               (s) => String(s.extra?.uid) === String(STATION_UID),
             );
 
@@ -352,15 +377,7 @@
               return;
             }
 
-            const freeSlots = station.empty_slots ?? 0;
-            const freeBikes = station.free_bikes ?? 0;
-            const totalSlots = station.extra?.slots ?? freeSlots + freeBikes;
-            const isOpen =
-              station.extra?.renting !== false &&
-              station.extra?.returning !== false;
-
             // Rellenar nombres reales de las opciones del select
-
             const porUid = new Map(
               stations.map((s) => [String(s.extra?.uid), s]),
             );
@@ -372,8 +389,24 @@
               }
             }
 
+            // Reordenar y seleccionar la primera alfabética solo la primera vez
+            if (!alreadyOrdered) {
+              const nueva = ordenarOpcionesYSeleccionarPrimera(stations);
+              if (nueva) station = nueva;
+              alreadyOrdered = true;
+            }
+
+            const freeSlots = station.empty_slots ?? 0;
+            const freeBikes = station.free_bikes ?? 0;
+            const totalSlots = station.extra?.slots ?? freeSlots + freeBikes;
+            const isOpen =
+              station.extra?.renting !== false &&
+              station.extra?.returning !== false;
+
             el.stationName.textContent =
-              station.extra?.address || station.name || "Parada " + STATION_UID;
+              station.extra?.address ||
+              station.name ||
+              "Parada " + STATION_UID;
 
             el.bigNumber.textContent = freeSlots;
             el.bigNumber.className =
