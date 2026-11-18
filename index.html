@@ -20,18 +20,9 @@
         --field: rgba(255, 255, 255, 0.06);
         --field-hover: rgba(255, 255, 255, 0.1);
       }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
-        font-family:
-          system-ui,
-          -apple-system,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
         background: var(--bg);
         color: var(--text);
         min-height: 100dvh;
@@ -74,12 +65,8 @@
         color: var(--accent);
         margin-bottom: 4px;
       }
-      .big-number.warn {
-        color: var(--warn);
-      }
-      .big-number.danger {
-        color: var(--danger);
-      }
+      .big-number.warn { color: var(--warn); }
+      .big-number.danger { color: var(--danger); }
       .label {
         text-align: center;
         font-size: 0.95rem;
@@ -92,9 +79,7 @@
         gap: 32px;
         margin-bottom: 24px;
       }
-      .stat {
-        text-align: center;
-      }
+      .stat { text-align: center; }
       .stat-value {
         font-size: 1.6rem;
         font-weight: 700;
@@ -143,9 +128,7 @@
         -webkit-tap-highlight-color: transparent;
         font-family: inherit;
       }
-      button:active {
-        opacity: 0.7;
-      }
+      button:active { opacity: 0.7; }
       .spinner {
         display: inline-block;
         width: 14px;
@@ -157,16 +140,10 @@
         vertical-align: middle;
         margin-right: 6px;
       }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
+      @keyframes spin { to { transform: rotate(360deg); } }
 
-      /* ---------------- Campo genérico ---------------- */
-      .field {
-        margin-bottom: 20px;
-      }
+      /* ---------------- Campos ---------------- */
+      .field { margin-bottom: 20px; }
       .field > label {
         display: block;
         font-size: 0.75rem;
@@ -179,9 +156,7 @@
       }
 
       /* ---------------- Buscador ---------------- */
-      .search-wrap {
-        position: relative;
-      }
+      .search-wrap { position: relative; }
       .search-input {
         width: 100%;
         background-color: var(--field);
@@ -194,15 +169,9 @@
         font-family: inherit;
         outline: none;
         -webkit-appearance: none;
-        transition:
-          border-color 0.15s ease,
-          background-color 0.15s ease,
-          box-shadow 0.15s ease;
+        transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
       }
-      .search-input::placeholder {
-        color: var(--muted);
-        font-weight: 400;
-      }
+      .search-input::placeholder { color: var(--muted); font-weight: 400; }
       .search-input:focus {
         border-color: var(--accent);
         box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
@@ -220,9 +189,7 @@
         z-index: 100;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
       }
-      .search-results[hidden] {
-        display: none;
-      }
+      .search-results[hidden] { display: none; }
       .search-item {
         padding: 12px 16px;
         cursor: pointer;
@@ -230,26 +197,18 @@
         font-size: 0.9rem;
         display: flex;
         gap: 10px;
-        align-items: baseline;
+        align-items: center;
         -webkit-tap-highlight-color: transparent;
       }
-      .search-item:last-child {
-        border-bottom: none;
-      }
-      .search-item:active,
-      .search-item:hover {
-        background: rgba(255, 255, 255, 0.08);
-      }
+      .search-item:last-child { border-bottom: none; }
+      .search-item:active, .search-item:hover { background: rgba(255, 255, 255, 0.08); }
       .search-item .uid {
         color: var(--accent);
         font-weight: 700;
         flex-shrink: 0;
         font-variant-numeric: tabular-nums;
       }
-      .search-item .addr {
-        color: var(--text);
-        line-height: 1.3;
-      }
+      .search-item .addr { color: var(--text); line-height: 1.3; flex: 1; }
       .search-empty {
         padding: 14px;
         text-align: center;
@@ -257,9 +216,54 @@
         font-size: 0.85rem;
       }
 
-      /* ---------------- Select estilizado ---------------- */
+      /* Estrella de habitual */
+      .star-btn {
+        background: none;
+        border: none;
+        padding: 4px 6px;
+        font-size: 1.15rem;
+        line-height: 1;
+        color: var(--muted);
+        cursor: pointer;
+        flex-shrink: 0;
+        border-radius: 8px;
+        transition: color 0.15s ease, transform 0.1s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .star-btn:hover { color: var(--warn); }
+      .star-btn:active { transform: scale(0.9); }
+      .star-btn.active { color: var(--warn); }
+
+      /* Checkbox "solo habituales" */
+      .filter-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        padding-left: 4px;
+        font-size: 0.85rem;
+        color: var(--muted);
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .filter-row input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent);
+        cursor: pointer;
+      }
+
+      /* ---------------- Select + estrella ---------------- */
+      .select-row {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
       .select-wrap {
         position: relative;
+        flex: 1;
+        min-width: 0;
       }
       .select-wrap select {
         width: 100%;
@@ -276,15 +280,10 @@
         font-family: inherit;
         cursor: pointer;
         outline: none;
-        transition:
-          border-color 0.15s ease,
-          background-color 0.15s ease,
-          box-shadow 0.15s ease;
+        transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
         -webkit-tap-highlight-color: transparent;
       }
-      .select-wrap select:hover {
-        background-color: var(--field-hover);
-      }
+      .select-wrap select:hover { background-color: var(--field-hover); }
       .select-wrap select:focus-visible {
         border-color: var(--accent);
         box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
@@ -302,14 +301,36 @@
         pointer-events: none;
         transition: border-color 0.15s ease;
       }
-      .select-wrap:hover::after {
-        border-color: var(--text);
-      }
+      .select-wrap:hover::after { border-color: var(--text); }
       .select-wrap select option {
         background-color: var(--card);
         color: var(--text);
         padding: 12px;
       }
+      .select-wrap select optgroup {
+        background-color: var(--card);
+        color: var(--warn);
+        font-weight: 700;
+      }
+
+      /* Botón estrella al lado del select */
+      .fav-toggle {
+        flex-shrink: 0;
+        width: 52px;
+        background-color: var(--field);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        color: var(--muted);
+        font-size: 1.5rem;
+        line-height: 1;
+        padding: 0;
+        cursor: pointer;
+        transition: color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .fav-toggle:hover { background-color: var(--field-hover); color: var(--warn); }
+      .fav-toggle:active { transform: scale(0.95); }
+      .fav-toggle.active { color: var(--warn); }
     </style>
   </head>
   <body>
@@ -330,13 +351,28 @@
           />
           <div id="searchResults" class="search-results" hidden></div>
         </div>
+        <label class="filter-row">
+          <input type="checkbox" id="onlyFavs" />
+          Solo habituales
+        </label>
       </div>
 
-      <!-- Select de paradas -->
+      <!-- Select de paradas + estrella -->
       <div class="field">
         <label for="parada">Parada</label>
-        <div class="select-wrap">
-          <select id="parada" name="parada"></select>
+        <div class="select-row">
+          <div class="select-wrap">
+            <select id="parada" name="parada"></select>
+          </div>
+          <button
+            type="button"
+            id="favToggle"
+            class="fav-toggle"
+            aria-label="Marcar como habitual"
+            title="Marcar como habitual"
+          >
+            ☆
+          </button>
         </div>
       </div>
 
@@ -369,26 +405,15 @@
       (function () {
         "use strict";
 
+        const FAVS_KEY = "valenbisi_favs";
+        const API_URL = "https://api.citybik.es/v2/networks/valenbisi";
+        const REFRESH_MS = 60_000;
+
         const paradaSelect = document.getElementById("parada");
         const searchInput = document.getElementById("searchInput");
         const searchResults = document.getElementById("searchResults");
-
-        const opciones = [];
-        for (let i = 1; i <= 276; i++) {
-          opciones.push({ value: String(i), label: "Parada " + i });
-        }
-
-        opciones.forEach((opcion) => {
-          const optionElement = document.createElement("option");
-          optionElement.value = opcion.value;
-          optionElement.textContent = opcion.label;
-          paradaSelect.appendChild(optionElement);
-        });
-
-        let STATION_UID = paradaSelect.value;
-
-        const API_URL = "https://api.citybik.es/v2/networks/valenbisi";
-        const REFRESH_MS = 60_000;
+        const onlyFavsCheckbox = document.getElementById("onlyFavs");
+        const favToggle = document.getElementById("favToggle");
 
         const el = {
           stationName: document.getElementById("stationName"),
@@ -400,10 +425,217 @@
           refreshBtn: document.getElementById("refreshBtn"),
         };
 
+        let STATION_UID = null;
         let intervalId = null;
         let alreadyOrdered = false;
         let stationsCache = [];
+        let favs = loadFavs();
 
+        /* -------------------- HABITUALES -------------------- */
+        function loadFavs() {
+          try {
+            const raw = localStorage.getItem(FAVS_KEY);
+            const arr = raw ? JSON.parse(raw) : [];
+            return new Set(Array.isArray(arr) ? arr.map(String) : []);
+          } catch (e) {
+            return new Set();
+          }
+        }
+
+        function saveFavs() {
+          try {
+            localStorage.setItem(FAVS_KEY, JSON.stringify([...favs]));
+          } catch (e) {}
+        }
+
+        function isFav(uid) {
+          return favs.has(String(uid));
+        }
+
+        function updateFavToggle() {
+          const marked = STATION_UID != null && isFav(STATION_UID);
+          favToggle.textContent = marked ? "★" : "☆";
+          favToggle.classList.toggle("active", marked);
+          favToggle.setAttribute(
+            "aria-label",
+            marked ? "Quitar de habituales" : "Marcar como habitual"
+          );
+          favToggle.title = marked
+            ? "Quitar de habituales"
+            : "Marcar como habitual";
+        }
+
+        function toggleFav(uid) {
+          uid = String(uid);
+          if (favs.has(uid)) favs.delete(uid);
+          else favs.add(uid);
+          saveFavs();
+          rebuildSelect();
+          updateFavToggle();
+          if (!searchResults.hidden) renderSearchResults(searchInput.value);
+        }
+
+        /* -------------------- SELECT -------------------- */
+        function getStationLabel(uid) {
+          const s = stationsCache.find(
+            (st) => String(st.extra?.uid) === String(uid)
+          );
+          if (s) return s.extra?.address || s.name || "Parada " + uid;
+          return "Parada " + uid;
+        }
+
+        function rebuildSelect() {
+          const current = STATION_UID || paradaSelect.value;
+
+          const base = [];
+          for (let i = 1; i <= 276; i++) base.push(String(i));
+          stationsCache.forEach((s) => {
+            const uid = String(s.extra?.uid || "");
+            if (uid && !base.includes(uid)) base.push(uid);
+          });
+
+          const favList = base.filter(isFav);
+          const restList = base.filter((u) => !isFav(u));
+
+          const sortFn = (a, b) =>
+            getStationLabel(a).localeCompare(getStationLabel(b), "es", {
+              sensitivity: "base",
+            });
+
+          favList.sort(sortFn);
+          restList.sort(sortFn);
+
+          paradaSelect.innerHTML = "";
+
+          if (favList.length) {
+            const grp = document.createElement("optgroup");
+            grp.label = "★ Habituales";
+            favList.forEach((uid) => {
+              const opt = document.createElement("option");
+              opt.value = uid;
+              opt.textContent = "★ " + getStationLabel(uid);
+              grp.appendChild(opt);
+            });
+            paradaSelect.appendChild(grp);
+          }
+
+          const grpAll = document.createElement("optgroup");
+          grpAll.label = favList.length ? "Todas" : "Paradas";
+          restList.forEach((uid) => {
+            const opt = document.createElement("option");
+            opt.value = uid;
+            opt.textContent = getStationLabel(uid);
+            grpAll.appendChild(opt);
+          });
+          paradaSelect.appendChild(grpAll);
+
+          const stillExists = [...paradaSelect.options].some(
+            (o) => o.value === current
+          );
+          if (stillExists) {
+            paradaSelect.value = current;
+            STATION_UID = current;
+          } else if (paradaSelect.options.length) {
+            paradaSelect.selectedIndex = 0;
+            STATION_UID = paradaSelect.value;
+          }
+
+          updateFavToggle();
+        }
+
+        /* -------------------- BUSCADOR -------------------- */
+        function filterStations(query) {
+          const q = normalize(query);
+          const onlyFavs = onlyFavsCheckbox.checked;
+
+          let list = stationsCache;
+          if (onlyFavs) list = list.filter((s) => isFav(s.extra?.uid));
+
+          if (!q) return onlyFavs ? list.slice(0, 15) : [];
+
+          return list
+            .filter((s) => {
+              const uid = String(s.extra?.uid || "");
+              const name = normalize(s.name);
+              const addr = normalize(s.extra?.address);
+              return (
+                uid.includes(q) || name.includes(q) || addr.includes(q)
+              );
+            })
+            .slice(0, 15);
+        }
+
+        function renderSearchResults(query) {
+          const q = query.trim();
+          const onlyFavs = onlyFavsCheckbox.checked;
+
+          if (!q && !onlyFavs) {
+            searchResults.hidden = true;
+            searchResults.innerHTML = "";
+            return;
+          }
+
+          if (!stationsCache.length) {
+            searchResults.innerHTML =
+              '<div class="search-empty">Cargando paradas…</div>';
+            searchResults.hidden = false;
+            return;
+          }
+
+          const results = filterStations(q);
+          if (!results.length) {
+            searchResults.innerHTML =
+              '<div class="search-empty">' +
+              (onlyFavs
+                ? "No hay habituales que coincidan"
+                : "Sin resultados") +
+              "</div>";
+            searchResults.hidden = false;
+            return;
+          }
+
+          searchResults.innerHTML = results
+            .map((s) => {
+              const uid = String(s.extra?.uid || "");
+              const addr = s.extra?.address || s.name || "";
+              const marked = isFav(uid);
+              return (
+                '<div class="search-item" data-uid="' +
+                escapeHtml(uid) +
+                '">' +
+                '<span class="uid">' +
+                escapeHtml(uid) +
+                "</span>" +
+                '<span class="addr">' +
+                escapeHtml(addr) +
+                "</span>" +
+                '<button type="button" class="star-btn' +
+                (marked ? " active" : "") +
+                '" data-star="' +
+                escapeHtml(uid) +
+                '" aria-label="' +
+                (marked ? "Quitar de habituales" : "Marcar como habitual") +
+                '">' +
+                (marked ? "★" : "☆") +
+                "</button>" +
+                "</div>"
+              );
+            })
+            .join("");
+
+          searchResults.hidden = false;
+        }
+
+        function selectFromSearch(uid) {
+          STATION_UID = String(uid);
+          if ([...paradaSelect.options].some((o) => o.value === STATION_UID)) {
+            paradaSelect.value = STATION_UID;
+          }
+          updateFavToggle();
+          fetchStation();
+        }
+
+        /* -------------------- HELPERS -------------------- */
         function setStatus(text, type) {
           el.status.textContent = text;
           el.status.className = "status" + (type ? " " + type : "");
@@ -444,100 +676,18 @@
             .trim();
         }
 
-        function ordenarOpcionesYSeleccionarPrimera(stations) {
-          const opcionesOrdenadas = Array.from(paradaSelect.options).sort(
-            (a, b) =>
-              a.textContent.localeCompare(b.textContent, "es", {
-                sensitivity: "base",
-              }),
-          );
-          opcionesOrdenadas.forEach((opt) => paradaSelect.appendChild(opt));
-
-          if (opcionesOrdenadas.length === 0) return null;
-
-          paradaSelect.selectedIndex = 0;
-          STATION_UID = paradaSelect.value;
-
-          return stations.find(
-            (s) => String(s.extra?.uid) === String(STATION_UID),
-          );
-        }
-
-        /* -------------------- BUSCADOR -------------------- */
-        function filterStations(query) {
-          const q = normalize(query);
-          if (!q) return [];
-          return stationsCache
-            .filter((s) => {
-              const uid = String(s.extra?.uid || "");
-              const name = normalize(s.name);
-              const addr = normalize(s.extra?.address);
-              return (
-                uid.includes(q) || name.includes(q) || addr.includes(q)
-              );
-            })
-            .slice(0, 15);
-        }
-
-        function renderSearchResults(query) {
-          const q = query.trim();
-          if (!q) {
-            searchResults.hidden = true;
-            searchResults.innerHTML = "";
-            return;
-          }
-
-          if (!stationsCache.length) {
-            searchResults.innerHTML =
-              '<div class="search-empty">Cargando paradas…</div>';
-            searchResults.hidden = false;
-            return;
-          }
-
-          const results = filterStations(q);
-          if (!results.length) {
-            searchResults.innerHTML =
-              '<div class="search-empty">Sin resultados</div>';
-            searchResults.hidden = false;
-            return;
-          }
-
-          searchResults.innerHTML = results
-            .map((s) => {
-              const uid = String(s.extra?.uid || "");
-              const addr = s.extra?.address || s.name || "";
-              return (
-                '<div class="search-item" data-uid="' +
-                escapeHtml(uid) +
-                '">' +
-                '<span class="uid">' +
-                escapeHtml(uid) +
-                "</span>" +
-                '<span class="addr">' +
-                escapeHtml(addr) +
-                "</span>" +
-                "</div>"
-              );
-            })
-            .join("");
-
-          searchResults.hidden = false;
-        }
-
-        function selectFromSearch(uid) {
-          STATION_UID = String(uid);
-          if (
-            [...paradaSelect.options].some((o) => o.value === STATION_UID)
-          ) {
-            paradaSelect.value = STATION_UID;
-          }
-          fetchStation();
-        }
-
         /* -------------------- FETCH -------------------- */
         async function fetchStation() {
           setLoading(true);
           setStatus("Consultando datos…", null);
+
+          if (STATION_UID == null) {
+            if (paradaSelect.options.length > 0) {
+              STATION_UID = paradaSelect.value || paradaSelect.options[0].value;
+            } else {
+              STATION_UID = "1";
+            }
+          }
 
           try {
             const response = await fetch(API_URL, { cache: "no-store" });
@@ -550,38 +700,49 @@
 
             stationsCache = stations;
 
-            let station = stations.find(
-              (s) => String(s.extra?.uid) === String(STATION_UID),
+            if (!alreadyOrdered) {
+              rebuildSelect();
+
+              if (favs.size > 0) {
+                const firstFavUid = [...favs].find((uid) =>
+                  stations.some((s) => String(s.extra?.uid) === uid)
+                );
+                if (firstFavUid) {
+                  STATION_UID = firstFavUid;
+                  paradaSelect.value = firstFavUid;
+                }
+              }
+
+              if (
+                !STATION_UID ||
+                !stations.some((s) => String(s.extra?.uid) === STATION_UID)
+              ) {
+                const firstOpt = paradaSelect.options[0];
+                if (firstOpt) {
+                  STATION_UID = firstOpt.value;
+                  paradaSelect.value = STATION_UID;
+                }
+              }
+
+              alreadyOrdered = true;
+            } else {
+              rebuildSelect();
+            }
+
+            updateFavToggle();
+
+            const station = stations.find(
+              (s) => String(s.extra?.uid) === String(STATION_UID)
             );
 
             if (!station) {
-              el.stationName.textContent =
-                "Parada " + STATION_UID + " no encontrada";
+              el.stationName.textContent = "Parada " + STATION_UID;
               el.bigNumber.textContent = "—";
               el.bigNumber.className = "big-number";
               el.freeBikes.textContent = "—";
               el.totalSlots.textContent = "—";
               setStatus("No se ha encontrado la estación en la API", "error");
               return;
-            }
-
-            // Rellenar nombres reales de las opciones del select
-            const porUid = new Map(
-              stations.map((s) => [String(s.extra?.uid), s]),
-            );
-            for (let i = 0; i < paradaSelect.options.length; i++) {
-              const s = porUid.get(paradaSelect.options[i].value);
-              if (s) {
-                paradaSelect.options[i].textContent =
-                  s.extra?.address || s.name || "Parada " + s.extra?.uid;
-              }
-            }
-
-            // Reordenar y seleccionar la primera alfabética solo la primera vez
-            if (!alreadyOrdered) {
-              const nueva = ordenarOpcionesYSeleccionarPrimera(stations);
-              if (nueva) station = nueva;
-              alreadyOrdered = true;
             }
 
             const freeSlots = station.empty_slots ?? 0;
@@ -606,7 +767,7 @@
 
             setStatus(
               isOpen ? "Estación operativa" : "Estación cerrada temporalmente",
-              isOpen ? "ok" : "error",
+              isOpen ? "ok" : "error"
             );
 
             el.lastUpdate.textContent =
@@ -623,7 +784,13 @@
         /* -------------------- EVENTOS -------------------- */
         paradaSelect.addEventListener("change", () => {
           STATION_UID = paradaSelect.value;
+          updateFavToggle();
           fetchStation();
+        });
+
+        favToggle.addEventListener("click", () => {
+          if (STATION_UID == null) return;
+          toggleFav(STATION_UID);
         });
 
         searchInput.addEventListener("input", (e) => {
@@ -631,10 +798,22 @@
         });
 
         searchInput.addEventListener("focus", (e) => {
-          if (e.target.value) renderSearchResults(e.target.value);
+          if (e.target.value || onlyFavsCheckbox.checked) {
+            renderSearchResults(e.target.value);
+          }
+        });
+
+        onlyFavsCheckbox.addEventListener("change", () => {
+          renderSearchResults(searchInput.value);
         });
 
         searchResults.addEventListener("click", (e) => {
+          const star = e.target.closest(".star-btn");
+          if (star) {
+            e.stopPropagation();
+            toggleFav(star.dataset.star);
+            return;
+          }
           const item = e.target.closest(".search-item");
           if (!item) return;
           selectFromSearch(item.dataset.uid);
@@ -665,6 +844,23 @@
         document.addEventListener("visibilitychange", () => {
           if (!document.hidden) fetchStation();
         });
+
+        /* -------------------- INICIO -------------------- */
+        rebuildSelect();
+
+        if (
+          !STATION_UID ||
+          ![...paradaSelect.options].some((o) => o.value === STATION_UID)
+        ) {
+          if (paradaSelect.options.length > 0) {
+            paradaSelect.selectedIndex = 0;
+            STATION_UID = paradaSelect.options[0].value;
+          } else {
+            STATION_UID = "1";
+          }
+        }
+
+        updateFavToggle();
 
         fetchStation().then(startAutoRefresh);
 
